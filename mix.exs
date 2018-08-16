@@ -20,7 +20,7 @@ defmodule MyProject.Mixfile do
   def application do
     [
       mod: {MyProject.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :edeliver]
     ]
   end
 
@@ -40,7 +40,9 @@ defmodule MyProject.Mixfile do
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:edeliver, ">= 1.6.0"},
+      {:distillery, "~> 2.0", warn_missing: false}
     ]
   end
 

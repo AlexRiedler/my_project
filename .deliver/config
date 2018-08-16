@@ -1,0 +1,50 @@
+# .deliver/config
+
+APP="my_project"
+
+# suffix version with version details
+AUTO_VERSION=date+branch+commit-count-branch+git-revision
+
+# prevent re-installing node modules
+GIT_CLEAN_PATHS="_build rel priv/static"
+
+BUILD_HOST="riedler-web"
+BUILD_USER="build"
+BUILD_AT="/home/$BUILD_USER/edeliver/$APP/builds"
+
+STAGING_HOSTS="riedler-web"
+STAGING_USER="build"
+TEST_AT="/home/$STAGING_USER"
+
+PRODUCTION_HOSTS="riedler-web"
+PRODUCTION_USER="web"
+DELIVER_TO="/home/$PRODUCTION_USER"
+
+pre_erlang_get_and_update_deps() {
+  status "Setup Production Secrets"
+  local _prod_secret_path="$DELIVER_TO/prod.secret.exs"
+  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    __sync_remote "
+      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
+    "
+  fi
+}
+
+pre_erlang_clean_compile() {
+  status "Running phoenix.digest"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e # fail if any command fails (recommended)
+    cd '$BUILD_AT'
+
+    # build assets
+    mkdir -p priv/static # required by the phoenix.digest task
+    cd assets
+    npm install
+    ./node_modules/brunch/bin/brunch build --production
+    cd ..
+
+    # build manifest
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phoenix.digest
+  "
+}
