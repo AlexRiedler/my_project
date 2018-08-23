@@ -30,7 +30,7 @@ COPY rel rel
 
 # build phoenix assets
 COPY assets assets
-RUN cd assets && npm install && ./node_modules/.bin/brunch build --production
+RUN cd assets && rm -rf node_modules && npm install && npm run deploy
 RUN mix phx.digest
 
 # build release
@@ -53,4 +53,4 @@ EXPOSE $HTTP_PORT $BEAM_PORT $ERL_EPMD_PORT
 
 # start command
 CMD ["/app/bin/my_project", "foreground"]
-ENTRYPOINT ["/app/bin/my_project"]
+ENTRYPOINT ["/bin/sh"]

@@ -32,12 +32,22 @@ environment :dev do
   set dev_mode: true
   set include_erts: false
   set cookie: :"7eQtE`R1fIn<3n^}ZhCx<r9a(d8a2~2mS/xUq1?_P&%b^Vzvy?T4^1xMogCBJOqJ"
+  set commands: [
+    seed: "rel/commands/seed.sh",
+    migrate: "rel/commands/migrate.sh",
+  ]
 end
 
 environment :prod do
   set include_erts: true
   set include_src: false
   set cookie: :"S*ECFvdHVuM6pv,(9iw3>jeHQ}ICZ<(D4~8,aUG*eiKYfp^3!CMcFND<dl.nC:SB"
+
+  set commands: [
+    seed: "rel/commands/seed.sh",
+    migrate: "rel/commands/migrate.sh",
+  ]
+  set post_start_hook: "rel/hooks/post_start"
 end
 
 # You may define one or more releases in this file.
