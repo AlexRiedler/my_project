@@ -47,7 +47,7 @@ environment :prod do
     seed: "rel/commands/seed.sh",
     migrate: "rel/commands/migrate.sh",
   ]
-  set post_start_hook: "rel/hooks/post_start"
+  set post_start_hooks: "rel/hooks/post_start_hooks"
 end
 
 # You may define one or more releases in this file.
