@@ -31,7 +31,6 @@ COPY rel rel
 # build phoenix assets
 COPY assets assets
 RUN cd assets && rm -rf node_modules && npm install && npm run deploy
-RUN mix phx.digest
 
 # build release
 RUN mix release --verbose
