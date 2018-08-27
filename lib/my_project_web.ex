@@ -40,6 +40,7 @@ defmodule MyProjectWeb do
       import MyProjectWeb.Router.Helpers
       import MyProjectWeb.ErrorHelpers
       import MyProjectWeb.Gettext
+      import MyProjectWeb.WebpackEntrypoint
     end
   end
 
