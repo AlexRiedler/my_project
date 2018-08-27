@@ -36,7 +36,7 @@ RUN cd assets && rm -rf node_modules && npm install && npm run deploy
 RUN mix release --verbose
 
 # prepare release image
-FROM alpine:3.6 as release
+FROM alpine:3.8 as release
 
 RUN apk --no-cache update && apk --no-cache add bash ncurses-libs openssl ca-certificates
 
@@ -52,4 +52,4 @@ EXPOSE $HTTP_PORT $BEAM_PORT $ERL_EPMD_PORT
 
 # start command
 CMD ["/app/bin/my_project", "foreground"]
-ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT ["/bin/bash"]
