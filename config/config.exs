@@ -23,6 +23,10 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
+config :my_project, MyProject.Guardian,
+  issuer: "my_project",
+  secret_key: "IM1Sli8eabfa3M/zzo62NYQGa50e+rM6ku/eSblfS+hlD8MyhoMcSVJxG5hYFYHw"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

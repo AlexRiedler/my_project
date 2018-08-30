@@ -11,6 +11,19 @@ defmodule MyProjectWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Guardian.Plug.VerifyHeader
+  end
+
+  scope "/api", MyProjectWeb do
+    pipe_through :api
+
+    scope "/v1" do
+      scope "/users" do
+        post "/registrations", Users.RegistrationController, :create
+        post "/sessions", Users.SessionsController, :create
+        delete "/sessions", Users.SessionsController, :delete
+      end
+    end
   end
 
   scope "/", MyProjectWeb do
@@ -18,9 +31,4 @@ defmodule MyProjectWeb.Router do
 
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", MyProjectWeb do
-  #   pipe_through :api
-  # end
 end

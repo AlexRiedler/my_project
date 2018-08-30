@@ -49,6 +49,11 @@ defmodule MyProject.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      # authentication and encryption
+      {:guardian, "~> 1.0"},
+      {:comeonin, "~> 4.0"},
+      {:argon2_elixir, "~> 1.2"},
+      # build and deliver
       {:edeliver, ">= 1.6.0"},
       {:distillery, "~> 2.0", warn_missing: false},
       {:excoveralls, "~> 0.9", only: :test},
