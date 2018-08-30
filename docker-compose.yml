@@ -1,28 +1,25 @@
 version: '3'
 services:
-  postgres:
+  db:
     image: postgres
     ports:
       - "5432:5432"
     volumes:
        - db_data:/var/lib/postgresql/data
     environment:
-        POSTGRES_DB: "my_project_prod"
+        POSTGRES_DB: "my_project_dev"
         POSTGRES_USER: "postgres"
         POSTGRES_PASSWORD: "postgres"
   web:
-    image: my_project:release
+    image: my_project:latest
     ports:
       - "4000:4000"
       - "14000:14000"
       - "24000:24000"
     depends_on:
-      - postgres
-    environment:
-      - MIX_ENV=prod
-      - HTTP_PORT=4000
-      - BEAM_PORT=14000
-      - ERL_EPMD_PORT=24000
+      - db
+    env_file:
+      - config/docker.env
 
 volumes:
     db_data:

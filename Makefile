@@ -39,5 +39,5 @@ build: ## Build the Docker image
 
 run: ## Run the app in Docker
 	docker run --env-file config/docker.env \
-		--expose 4000 -p 4000:4000 \
+		-p 4000:4000 -p 14000:14000 -p 24000:24000 \
 		--rm -it $(APP_NAME):latest

@@ -75,8 +75,7 @@ RUN apk --no-cache update && \
       ca-certificates
 
 # setup so the application does not run as root
-RUN mkdir -p /opt/app && chown -R nobody: /opt/app
-USER nobody
+RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
 COPY --from=build /release ./
@@ -92,4 +91,3 @@ EXPOSE $HTTP_PORT $BEAM_PORT $ERL_EPMD_PORT
 
 # start command
 CMD trap 'exit' INT; /opt/app/bin/${APP_NAME} foreground
-ENTRYPOINT ["/bin/bash"]
