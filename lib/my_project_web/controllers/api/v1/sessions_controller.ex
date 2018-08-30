@@ -7,11 +7,11 @@ defmodule MyProjectWeb.Users.SessionsController do
     case MyProjectWeb.Session.authenticate(session_params) do
       {:ok, user} ->
         {:ok, token, claims} = MyProject.Guardian.encode_and_sign(user)
-        IO.inspect "I AM HERE"
+
         conn
           |> put_status(:created)
           |> MyProject.Guardian.Plug.sign_in(user)
-          |> render("show.json", jwt: "token", user: user)
+          |> render("show.json", jwt: token, user: user)
       :error ->
         conn
         |> put_status(:unprocessable_entity)

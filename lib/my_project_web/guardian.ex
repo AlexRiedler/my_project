@@ -1,5 +1,5 @@
 defmodule MyProject.Guardian do
-  use Guardian, opt_app: :my_project
+  use Guardian, otp_app: :my_project
 
   alias MyProject.{Repo}
   alias MyProject.Accounts.{User}

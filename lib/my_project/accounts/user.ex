@@ -2,6 +2,7 @@ defmodule MyProject.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :email]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
