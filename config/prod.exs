@@ -16,7 +16,6 @@ use Mix.Config
 config :my_project, MyProjectWeb.Endpoint,
   http: [port: 4000],
   url: [host: "example.com", port: 4000],
-  cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   code_reloader: false,
   root: "."

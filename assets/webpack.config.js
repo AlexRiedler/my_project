@@ -23,6 +23,9 @@ module.exports = (env, argv) => {
      filename: dev ? "[name].js" : "[name]_[contenthash].bundle.js",
      chunkFilename: dev ? "js/[id].chunk" : "js/[id].[chunkhash].chunk"
    },
+   optimization: {
+     namedChunks: true
+   },
    module: {
      rules: [
        {
@@ -45,7 +48,7 @@ module.exports = (env, argv) => {
      new CopyWebpackPlugin([{ from: "static/**/*", to: path.resolve(distFolder, "../")}]),
      new MiniCssExtractPlugin({
        filename: dev ? "[name].css" : "[name].[chunkhash].css",
-       chunkFilename: dev ? "css/[id].chunk" : "[id].[chunkhash].chunk"
+       chunkFilename: dev ? "css/[id].chunk" : "css/[id].[chunkhash].chunk"
      }),
      new WebpackAssetsManifest({
        output: "manifest.json",
