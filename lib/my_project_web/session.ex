@@ -1,5 +1,6 @@
 defmodule MyProjectWeb.Session do
-  alias MyProject.{Repo, User}
+  alias MyProject.{Repo}
+  alias MyProject.Accounts.{User}
 
   def authenticate(%{"email" => email, "password" => password}) do
     case Repo.get_by(User, email: email) do
@@ -16,6 +17,6 @@ defmodule MyProjectWeb.Session do
   end
 
   defp verify_password(password, pw_hash) do
-    Comeonin.Bcrypt.checkpw(password, pw_hash)
+    Comeonin.Argon2.checkpw(password, pw_hash)
   end
 end

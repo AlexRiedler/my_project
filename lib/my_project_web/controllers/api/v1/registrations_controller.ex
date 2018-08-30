@@ -1,7 +1,8 @@
 defmodule MyProject.RegistrationController do
-  use MyProject.Web, :controller
+  use MyProjectWeb, :controller
 
-  alias MyProject.{Repo, User}
+  alias MyProject.{Repo}
+  alias MyProject.Accounts.{User}
 
   plug :scrub_params, "user" when action in [:create]
 

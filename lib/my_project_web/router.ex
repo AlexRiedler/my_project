@@ -14,16 +14,20 @@ defmodule MyProjectWeb.Router do
     plug Guardian.Plug.VerifyHeader
   end
 
-  scope "/api", MyProjectWeb do
-    pipe_through :api
+  pipeline :auth do
+    plug MyProjectWeb.AuthPipeline
+  end
 
-    scope "/v1" do
-      scope "/users" do
-        post "/registrations", Users.RegistrationController, :create
-        post "/sessions", Users.SessionsController, :create
-        delete "/sessions", Users.SessionsController, :delete
-      end
-    end
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
+  scope "/api/v1/users", MyProjectWeb do
+    pipe_through [:api, :auth]
+    get "/me", UserController, :me
+    post "/registrations", Users.RegistrationController, :create
+    post "/sessions", Users.SessionsController, :create
+    delete "/sessions", Users.SessionsController, :delete
   end
 
   scope "/", MyProjectWeb do

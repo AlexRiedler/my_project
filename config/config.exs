@@ -25,7 +25,7 @@ config :logger, :console,
 
 config :my_project, MyProject.Guardian,
   issuer: "my_project",
-  secret_key: "IM1Sli8eabfa3M/zzo62NYQGa50e+rM6ku/eSblfS+hlD8MyhoMcSVJxG5hYFYHw"
+  secret_key: "Ja4gk0sWMuv6RV1EJy3yrPKV9yDq6quGHzpHbqqGwFp+hsUQhL9tDK2u26vg+Zr8"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

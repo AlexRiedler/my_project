@@ -1,5 +1,5 @@
-defmodule PhoenixPair.SessionsView do
-  use PhoenixPair.Web, :view
+defmodule MyProjectWeb.Users.SessionsView do
+  use MyProjectWeb, :view
 
   def render("show.json", %{jwt: jwt, user: user}) do
     %{

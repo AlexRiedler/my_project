@@ -1,5 +1,5 @@
-defmodule PhoenixPair.RegistrationView do 
-  use PhoenixPair.Web, :view
+defmodule MyProject.RegistrationView do 
+  use MyProjectWeb, :view
 
   def render("error.json", %{changeset: changeset}) do 
     errors = changeset.errors 
