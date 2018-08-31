@@ -6,9 +6,9 @@ defmodule MyProject.AccountsTest do
   describe "users" do
     alias MyProject.Accounts.User
 
-    @valid_attrs %{email: "some email", encrypted_password: "some encrypted_password", first_name: "some first_name", last_name: "some last_name"}
-    @update_attrs %{email: "some updated email", encrypted_password: "some updated encrypted_password", first_name: "some updated first_name", last_name: "some updated last_name"}
-    @invalid_attrs %{email: nil, encrypted_password: nil, first_name: nil, last_name: nil}
+    @valid_attrs %{email: "some email", password: "some password", first_name: "some first_name", last_name: "some last_name"}
+    @update_attrs %{email: "some updated email", password: "some new password", first_name: "some updated first_name", last_name: "some updated last_name"}
+    @invalid_attrs %{email: nil, first_name: "Alex", last_name: "Riedler"}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -32,7 +32,6 @@ defmodule MyProject.AccountsTest do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
       assert user.email == "some email"
-      assert user.encrypted_password == "some encrypted_password"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
     end
@@ -46,7 +45,6 @@ defmodule MyProject.AccountsTest do
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
       assert user.email == "some updated email"
-      assert user.encrypted_password == "some updated encrypted_password"
       assert user.first_name == "some updated first_name"
       assert user.last_name == "some updated last_name"
     end

@@ -24,7 +24,6 @@ defmodule MyProject.Accounts.User do
   end
 
   defp generate_encrypted_password(current_changeset) do
-    IO.inspect current_changeset
     case current_changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         put_change(current_changeset, :encrypted_password, Comeonin.Argon2.hashpwsalt(password))

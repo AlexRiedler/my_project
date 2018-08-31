@@ -3,6 +3,7 @@ defmodule MyProjectWeb.UserSocket do
 
   ## Channels
   # channel "room:*", MyProjectWeb.RoomChannel
+  channel "challenges:*", MyProjectWeb.ChallengeChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -19,8 +20,18 @@ defmodule MyProjectWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    case MyProject.Guardian.decode_and_verify(token) do
+      {:ok, claims} ->
+        case MyProject.Guardian.resource_from_claims(claims) do
+          {:ok, user} ->
+            {:ok, assign(socket, :current_user, user)}
+          {:error, _reason} ->
+            :error
+        end
+      {:error, _reason} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

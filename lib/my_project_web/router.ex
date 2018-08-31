@@ -11,7 +11,6 @@ defmodule MyProjectWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader
   end
 
   pipeline :auth do
@@ -22,9 +21,15 @@ defmodule MyProjectWeb.Router do
     plug Guardian.Plug.EnsureAuthenticated
   end
 
+  scope "/api/v1", MyProjectWeb do
+    pipe_through [:api, :auth, :ensure_auth]
+    get "/users/me", UserController, :me
+    resources "/challenges", ChallengeController, except: [:new, :edit]
+  end
+
   scope "/api/v1/users", MyProjectWeb do
     pipe_through [:api, :auth]
-    get "/me", UserController, :me
+    get "/:id", UserController, :show
     post "/registrations", Users.RegistrationController, :create
     post "/sessions", Users.SessionsController, :create
     delete "/sessions", Users.SessionsController, :delete
