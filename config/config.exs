@@ -16,6 +16,7 @@ config :my_project, MyProjectWeb.Endpoint,
   secret_key_base: "XioYptKqJ8JPl4YdIktj9wsglEgUYNWrk5+LcPqhJmrJNJLGHLJQ9Vum63BpevMI",
   render_errors: [view: MyProjectWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: MyProject.PubSub,
+           pool_size: 1,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
@@ -26,6 +27,9 @@ config :logger, :console,
 config :my_project, MyProject.Guardian,
   issuer: "my_project",
   secret_key: "Ja4gk0sWMuv6RV1EJy3yrPKV9yDq6quGHzpHbqqGwFp+hsUQhL9tDK2u26vg+Zr8"
+
+config :my_project, MyProject.PubSub,
+  node_name: "testnode"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

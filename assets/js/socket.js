@@ -3,7 +3,7 @@
 
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/web/endpoint.ex":
-import {Socket} from "phoenix"
+import {Socket, Presence} from "phoenix"
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
@@ -60,6 +60,17 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 channel.on("response:updated", (response) => {
+})
+
+let presences = []
+channel.on("presence_diff", (response) => {
+  presences = Presence.syncDiff(presences, response);
+  let particpants = Presence.list(presences).map(p => {participants.push(p.metas[0])})
+})
+
+channel.on("presence_state", (response) => {
+  presences = Presence.syncDiff(presences, response);
+  let particpants = Presence.list(presences).map(p => {participants.push(p.metas[0])})
 })
 
 export default socket
