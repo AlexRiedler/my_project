@@ -1,10 +1,10 @@
 defmodule MyProject.Guardian do
   use Guardian, otp_app: :my_project
 
-  alias MyProject.{Repo}
   alias MyProject.Accounts.{User}
+  alias MyProject.{Repo}
 
-  def subject_for_token(resource = %User{}, _claims) do
+  def subject_for_token(%User{} = resource, _claims) do
     {:ok, "User:v1:#{resource.id}"}
   end
 

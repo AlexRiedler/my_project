@@ -1,6 +1,6 @@
 defmodule MyProjectWeb.Session do
-  alias MyProject.{Repo}
   alias MyProject.Accounts.{User}
+  alias MyProject.{Repo}
 
   def authenticate(%{"email" => email, "password" => password}) do
     case Repo.get_by(User, email: email) do
