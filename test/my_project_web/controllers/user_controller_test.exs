@@ -28,13 +28,14 @@ defmodule MyProjectWeb.UserControllerTest do
     end
 
     test "renders logged in user", %{conn: conn, user: user} do
-      conn = get conn, user_path(conn, :me)
+      conn = get(conn, user_path(conn, :me))
+
       assert json_response(conn, 200)["data"] == %{
-        "id" => user.id,
-        "email" => "some email",
-        "first_name" => "some first_name",
-        "last_name" => "some last_name"
-      }
+               "id" => user.id,
+               "email" => "some email",
+               "first_name" => "some first_name",
+               "last_name" => "some last_name"
+             }
     end
   end
 
@@ -42,13 +43,14 @@ defmodule MyProjectWeb.UserControllerTest do
     setup [:create_user]
 
     test "renders user when data is valid", %{conn: conn, user: %User{id: id} = user} do
-      conn = get conn, user_path(conn, :show, id)
+      conn = get(conn, user_path(conn, :show, id))
+
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
-        "email" => "some email",
-        "first_name" => "some first_name",
-        "last_name" => "some last_name"
-      }
+               "id" => id,
+               "email" => "some email",
+               "first_name" => "some first_name",
+               "last_name" => "some last_name"
+             }
     end
   end
 
@@ -59,8 +61,9 @@ defmodule MyProjectWeb.UserControllerTest do
 
   defp login_user(conn, user) do
     {:ok, token, _} = MyProject.Guardian.encode_and_sign(user, %{}, token_type: :access)
+
     conn
-      |> put_req_header("accept", "application/json")
-      |> put_req_header("authorization", "bearer: " <> token)
+    |> put_req_header("accept", "application/json")
+    |> put_req_header("authorization", "bearer: " <> token)
   end
 end

@@ -3,10 +3,10 @@ defmodule MyProjectWeb.UserSocket do
 
   ## Channels
   # channel "room:*", MyProjectWeb.RoomChannel
-  channel "challenges:*", MyProjectWeb.ChallengeChannel
+  channel("challenges:*", MyProjectWeb.ChallengeChannel)
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport(:websocket, Phoenix.Transports.WebSocket)
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
@@ -26,9 +26,11 @@ defmodule MyProjectWeb.UserSocket do
         case MyProject.Guardian.resource_from_claims(claims) do
           {:ok, user} ->
             {:ok, assign(socket, :current_user, user)}
+
           {:error, _reason} ->
             :error
         end
+
       {:error, _reason} ->
         :error
     end

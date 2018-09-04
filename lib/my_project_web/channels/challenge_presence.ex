@@ -1,5 +1,6 @@
 defmodule MyProjectWeb.ChallengePresence do
-  use Phoenix.Presence, otp_app: :my_project,
+  use Phoenix.Presence,
+    otp_app: :my_project,
     pubsub_server: MyProject.PubSub
 
   def track_user_join(socket, user) do

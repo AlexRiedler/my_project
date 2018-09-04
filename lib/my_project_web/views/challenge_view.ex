@@ -11,10 +11,12 @@ defmodule MyProjectWeb.ChallengeView do
   end
 
   def render("challenge.json", %{challenge: challenge}) do
-    %{id: challenge.id,
+    %{
+      id: challenge.id,
       title: challenge.title,
       description: challenge.description,
       response: challenge.response,
-      chat_id: challenge.chat_id}
+      chat_id: challenge.chat_id
+    }
   end
 end

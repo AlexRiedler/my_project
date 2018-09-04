@@ -6,10 +6,10 @@ defmodule MyProject.Challenges.Challenge do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "challenges" do
-    field :title, :string
-    field :description, :string
-    field :response, :string
-    field :chat_id, Ecto.UUID
+    field(:title, :string)
+    field(:description, :string)
+    field(:response, :string)
+    field(:chat_id, Ecto.UUID)
 
     timestamps()
   end

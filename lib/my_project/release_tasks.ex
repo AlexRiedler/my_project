@@ -22,25 +22,26 @@ defmodule MyProject.ReleaseTasks do
   end
 
   defp init(app, start_apps) do
-    IO.puts "Loading app.."
+    IO.puts("Loading app..")
     :ok = Application.load(app)
 
-    IO.puts "Starting dependencies.."
+    IO.puts("Starting dependencies..")
     Enum.each(start_apps, &Application.ensure_all_started/1)
 
-    IO.puts "Starting repos.."
+    IO.puts("Starting repos..")
+
     app
     |> Application.get_env(:ecto_repos, [])
-    |> Enum.each(&(&1.start_link(pool_size: 1)))
+    |> Enum.each(& &1.start_link(pool_size: 1))
   end
 
   defp stop do
-    IO.puts "Success!"
+    IO.puts("Success!")
     :init.stop()
   end
 
   defp run_migrations_for(app) do
-    IO.puts "Running migrations for #{app}"
+    IO.puts("Running migrations for #{app}")
 
     app
     |> Application.get_env(:ecto_repos, [])
@@ -48,7 +49,7 @@ defmodule MyProject.ReleaseTasks do
   end
 
   defp run_seed_script(seed_script) do
-    IO.puts "Running seed script #{seed_script}.."
+    IO.puts("Running seed script #{seed_script}..")
     Code.eval_file(seed_script)
   end
 

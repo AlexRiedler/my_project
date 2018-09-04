@@ -4,7 +4,7 @@ defmodule MyProject.RegistrationController do
   alias MyProject.{Repo}
   alias MyProject.Accounts.{User}
 
-  plug :scrub_params, "user" when action in [:create]
+  plug(:scrub_params, "user" when action in [:create])
 
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)

@@ -6,8 +6,18 @@ defmodule MyProject.AccountsTest do
   describe "users" do
     alias MyProject.Accounts.User
 
-    @valid_attrs %{email: "some email", password: "some password", first_name: "some first_name", last_name: "some last_name"}
-    @update_attrs %{email: "some updated email", password: "some new password", first_name: "some updated first_name", last_name: "some updated last_name"}
+    @valid_attrs %{
+      email: "some email",
+      password: "some password",
+      first_name: "some first_name",
+      last_name: "some last_name"
+    }
+    @update_attrs %{
+      email: "some updated email",
+      password: "some new password",
+      first_name: "some updated first_name",
+      last_name: "some updated last_name"
+    }
     @invalid_attrs %{email: nil, first_name: "Alex", last_name: "Riedler"}
 
     def user_fixture(attrs \\ %{}) do

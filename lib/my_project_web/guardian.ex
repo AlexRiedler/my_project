@@ -15,7 +15,9 @@ defmodule MyProject.Guardian do
           nil -> {:error, :resource_not_found}
           user -> {:ok, user}
         end
-      _ -> {:error, :resource_not_found}
+
+      _ ->
+        {:error, :resource_not_found}
     end
   end
 end

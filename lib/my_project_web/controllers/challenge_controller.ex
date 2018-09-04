@@ -4,7 +4,7 @@ defmodule MyProjectWeb.ChallengeController do
   alias MyProject.Challenges
   alias MyProject.Challenges.Challenge
 
-  action_fallback MyProjectWeb.FallbackController
+  action_fallback(MyProjectWeb.FallbackController)
 
   def index(conn, _params) do
     challenges = Challenges.list_challenges()
@@ -28,13 +28,15 @@ defmodule MyProjectWeb.ChallengeController do
   def update(conn, %{"id" => id, "challenge" => challenge_params}) do
     challenge = Challenges.get_challenge!(id)
 
-    with {:ok, %Challenge{} = challenge} <- Challenges.update_challenge(challenge, challenge_params) do
+    with {:ok, %Challenge{} = challenge} <-
+           Challenges.update_challenge(challenge, challenge_params) do
       render(conn, "show.json", challenge: challenge)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     challenge = Challenges.get_challenge!(id)
+
     with {:ok, %Challenge{}} <- Challenges.delete_challenge(challenge) do
       send_resp(conn, :no_content, "")
     end

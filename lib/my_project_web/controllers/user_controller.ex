@@ -3,7 +3,7 @@ defmodule MyProjectWeb.UserController do
 
   alias MyProject.Accounts
 
-  action_fallback MyProjectWeb.FallbackController
+  action_fallback(MyProjectWeb.FallbackController)
 
   def me(conn, _params) do
     user = MyProject.Guardian.Plug.current_resource(conn)

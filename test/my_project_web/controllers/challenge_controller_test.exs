@@ -4,8 +4,18 @@ defmodule MyProjectWeb.ChallengeControllerTest do
   alias MyProject.Challenges
   alias MyProject.Challenges.Challenge
 
-  @create_attrs %{chat_id: "7488a646-e31f-11e4-aace-600308960662", description: "some description", response: "some response", title: "some title"}
-  @update_attrs %{chat_id: "7488a646-e31f-11e4-aace-600308960668", description: "some updated description", response: "some updated response", title: "some updated title"}
+  @create_attrs %{
+    chat_id: "7488a646-e31f-11e4-aace-600308960662",
+    description: "some description",
+    response: "some response",
+    title: "some title"
+  }
+  @update_attrs %{
+    chat_id: "7488a646-e31f-11e4-aace-600308960668",
+    description: "some updated description",
+    response: "some updated response",
+    title: "some updated title"
+  }
   @invalid_attrs %{chat_id: nil, description: nil, response: nil, title: nil}
 
   def fixture(:challenge) do
@@ -14,12 +24,13 @@ defmodule MyProjectWeb.ChallengeControllerTest do
   end
 
   def fixture(:user) do
-    {:ok, user} = MyProject.Accounts.create_user(%{
-      email: "alex@riedler.ca",
-      first_name: "Alex",
-      last_name: "Riedler",
-      password: "foobar"
-    })
+    {:ok, user} =
+      MyProject.Accounts.create_user(%{
+        email: "alex@riedler.ca",
+        first_name: "Alex",
+        last_name: "Riedler",
+        password: "foobar"
+      })
 
     user
   end
@@ -31,27 +42,29 @@ defmodule MyProjectWeb.ChallengeControllerTest do
 
   describe "index" do
     test "lists all challenges", %{conn: conn} do
-      conn = get conn, challenge_path(conn, :index)
+      conn = get(conn, challenge_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create challenge" do
     test "renders challenge when data is valid", %{conn: conn} do
-      conn = post conn, challenge_path(conn, :create), challenge: @create_attrs
+      conn = post(conn, challenge_path(conn, :create), challenge: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, challenge_path(conn, :show, id)
+      conn = get(conn, challenge_path(conn, :show, id))
+
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
-        "chat_id" => "7488a646-e31f-11e4-aace-600308960662",
-        "description" => "some description",
-        "response" => "some response",
-        "title" => "some title"}
+               "id" => id,
+               "chat_id" => "7488a646-e31f-11e4-aace-600308960662",
+               "description" => "some description",
+               "response" => "some response",
+               "title" => "some title"
+             }
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, challenge_path(conn, :create), challenge: @invalid_attrs
+      conn = post(conn, challenge_path(conn, :create), challenge: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -63,21 +76,27 @@ defmodule MyProjectWeb.ChallengeControllerTest do
       {:ok, conn: login_user(conn, user)}
     end
 
-    test "renders challenge when data is valid", %{conn: conn, challenge: %Challenge{id: id} = challenge, user: user} do
-      conn = put conn, challenge_path(conn, :update, challenge), challenge: @update_attrs
+    test "renders challenge when data is valid", %{
+      conn: conn,
+      challenge: %Challenge{id: id} = challenge,
+      user: user
+    } do
+      conn = put(conn, challenge_path(conn, :update, challenge), challenge: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, challenge_path(conn, :show, id)
+      conn = get(conn, challenge_path(conn, :show, id))
+
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
-        "chat_id" => "7488a646-e31f-11e4-aace-600308960668",
-        "description" => "some updated description",
-        "response" => "some updated response",
-        "title" => "some updated title"}
+               "id" => id,
+               "chat_id" => "7488a646-e31f-11e4-aace-600308960668",
+               "description" => "some updated description",
+               "response" => "some updated response",
+               "title" => "some updated title"
+             }
     end
 
     test "renders errors when data is invalid", %{conn: conn, challenge: challenge} do
-      conn = put conn, challenge_path(conn, :update, challenge), challenge: @invalid_attrs
+      conn = put(conn, challenge_path(conn, :update, challenge), challenge: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -90,11 +109,12 @@ defmodule MyProjectWeb.ChallengeControllerTest do
     end
 
     test "deletes chosen challenge", %{conn: conn, challenge: challenge} do
-      conn = delete conn, challenge_path(conn, :delete, challenge)
+      conn = delete(conn, challenge_path(conn, :delete, challenge))
       assert response(conn, 204)
-      assert_error_sent 404, fn ->
-        get conn, challenge_path(conn, :show, challenge)
-      end
+
+      assert_error_sent(404, fn ->
+        get(conn, challenge_path(conn, :show, challenge))
+      end)
     end
   end
 
@@ -110,8 +130,9 @@ defmodule MyProjectWeb.ChallengeControllerTest do
 
   defp login_user(conn, user) do
     {:ok, token, _} = MyProject.Guardian.encode_and_sign(user, %{}, token_type: :access)
+
     conn
-      |> put_req_header("accept", "application/json")
-      |> put_req_header("authorization", "bearer: " <> token)
+    |> put_req_header("accept", "application/json")
+    |> put_req_header("authorization", "bearer: " <> token)
   end
 end

@@ -6,8 +6,18 @@ defmodule MyProject.ChallengesTest do
   describe "challenges" do
     alias MyProject.Challenges.Challenge
 
-    @valid_attrs %{chat_id: "7488a646-e31f-11e4-aace-600308960662", description: "some description", response: "some response", title: "some title"}
-    @update_attrs %{chat_id: "7488a646-e31f-11e4-aace-600308960668", description: "some updated description", response: "some updated response", title: "some updated title"}
+    @valid_attrs %{
+      chat_id: "7488a646-e31f-11e4-aace-600308960662",
+      description: "some description",
+      response: "some response",
+      title: "some title"
+    }
+    @update_attrs %{
+      chat_id: "7488a646-e31f-11e4-aace-600308960668",
+      description: "some updated description",
+      response: "some updated response",
+      title: "some updated title"
+    }
     @invalid_attrs %{chat_id: nil, description: nil, response: nil, title: nil}
 
     def challenge_fixture(attrs \\ %{}) do
