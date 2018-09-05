@@ -1,35 +1,51 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed and maintainability.</p>
-</section>
+<header>
+  <section class="container">
+    <nav role="navigation">
+      <ul>
+        <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+      </ul>
+    </nav>
+    <a href="http://phoenixframework.org/" class="phx-logo">
+      <img src="<%= static_path(@conn, "/assets/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+    </a>
+  </section>
+</header>
+<main role="main" class="container">
+  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <section class="phx-hero">
+    <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+    <p>A productive web framework that<br/>does not compromise speed and maintainability.</p>
+  </section>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.3/CHANGELOG.md">v1.3 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
-  </article>
-</section>
+  <section class="row">
+    <article class="column">
+      <h2>Resources</h2>
+      <ul>
+        <li>
+          <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
+        </li>
+        <li>
+          <a href="https://github.com/phoenixframework/phoenix">Source</a>
+        </li>
+        <li>
+          <a href="https://github.com/phoenixframework/phoenix/blob/v1.3/CHANGELOG.md">v1.3 Changelog</a>
+        </li>
+      </ul>
+    </article>
+    <article class="column">
+      <h2>Help</h2>
+      <ul>
+        <li>
+          <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
+        </li>
+        <li>
+          <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
+        </li>
+      </ul>
+    </article>
+  </section>
+</main>

@@ -62,15 +62,16 @@ channel.join()
 channel.on("response:updated", (response) => {
 })
 
+let participants = []
 let presences = []
 channel.on("presence_diff", (response) => {
   presences = Presence.syncDiff(presences, response);
-  let particpants = Presence.list(presences).map(p => {participants.push(p.metas[0])})
+  participants = Presence.list(presences).map(p => {participants.push(p.metas[0])})
 })
 
 channel.on("presence_state", (response) => {
   presences = Presence.syncDiff(presences, response);
-  let particpants = Presence.list(presences).map(p => {participants.push(p.metas[0])})
+  participants = Presence.list(presences).map(p => {participants.push(p.metas[0])})
 })
 
 export default socket

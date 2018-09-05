@@ -19,8 +19,32 @@ import "phoenix_html";
 // paths "./socket" or full ones "web/static/js/socket".
 window.userToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJteV9wcm9qZWN0IiwiZXhwIjoxNTM4MTU3ODgxLCJpYXQiOjE1MzU3Mzg2ODEsImlzcyI6Im15X3Byb2plY3QiLCJqdGkiOiIxY2QwNjQzYy1mMzhkLTQwNGQtYmQxZS0zOWMzYTkwMTcxMDgiLCJuYmYiOjE1MzU3Mzg2ODAsInN1YiI6IlVzZXI6djE6NzA2Y2Y3NGEtZWYzZi00OGQ0LTg1Y2MtNDQ3ZTMzMzI3NTAyIiwidHlwIjoiYWNjZXNzIn0.5csE4NGkyQgfi5ozVvBZ9bblfsqQ_y7DMU7ngsJoZbCjHGHEgYtatR-R8Aq2LGnVm6q2ABrmr2d89ZvbRYABzg";
 
-import(/* webpackChunkName: "socket" */ "./socket");
+//import(/* webpackChunkName: "socket" */ "./socket");
 
 import("./dynamic").then(({ default: dynamic }) => {
   dynamic();
 });
+
+import Vue from 'vue'
+
+import VueRouter from 'vue-router'
+
+import NotFound from "./NotFound.vue"
+const Challenge = () => import(/* webpackChunkName: "challenge" */ "./Challenge.vue")
+
+const router = new VueRouter({
+  mode: 'history',
+  base: __dirname,
+  routes: [
+    { path: '/', component: NotFound },
+    { path: '/challenge/:challenge_id', component: Challenge }
+  ]
+})
+
+// inject $router and $route into all components
+Vue.use(VueRouter)
+
+const app = new Vue({
+  router,
+  template: `<router-view class="view"></router-view>`
+}).$mount('#root')

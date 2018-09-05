@@ -2,6 +2,7 @@ const path = require("path")
 const glob = require("glob")
 const webpack = require("webpack")
 
+const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
@@ -40,15 +41,35 @@ module.exports = (env, argv) => {
            "css-loader",
            "sass-loader"
          ]
+       },
+       {
+         test: /\.vue$/,
+         loader: 'vue-loader',
+         options: {
+           loaders: {
+             'scss': [
+               'vue-style-loader',
+               'css-loader',
+               'sass-loader'
+             ]
+           }
+         }
        }
      ]
    },
+   resolve: {
+     alias: {
+       'vue$': 'vue/dist/vue.esm.js'
+     },
+     extensions: ['*', '.js', '.vue', '.json']
+   },
    plugins: [
+     new VueLoaderPlugin(),
      new CleanWebpackPlugin(["js", "css", "images", "static"], { root: distFolder }),
      new CopyWebpackPlugin([{ from: "static/**/*", to: path.resolve(distFolder, "../")}]),
      new MiniCssExtractPlugin({
        filename: dev ? "[name].css" : "[name].[chunkhash].css",
-       chunkFilename: dev ? "css/[id].chunk" : "css/[id].[chunkhash].chunk"
+       chunkFilename: dev ? "css/[id].chunk.css" : "css/[id].[chunkhash].chunk.css"
      }),
      new WebpackAssetsManifest({
        output: "manifest.json",
